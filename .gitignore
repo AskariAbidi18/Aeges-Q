@@ -1,0 +1,30 @@
+# Data
+data/raw/*
+!data/raw/.gitkeep
+
+data/interim/*
+!data/interim/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+Thumbs.db
