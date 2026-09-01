@@ -1,105 +1,160 @@
+from typing import Tuple
+
 import pandas as pd
-
-from pandas.api.types import is_numeric_dtype
-
 from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-class UNSWPreprocessor:
 
-    def __init__(self):
-        self.id_column = "id"
-        self.target_column = "label"
-        self.attack_category_column = "attack_cat"
-        self.numerical_features = None
-        self.categorical_features = None
-        self.transformer = None
+# Original numerical feature set established during experimentation.
+NUMERICAL_FEATURES = [
+    "dur",
+    "spkts",
+    "dpkts",
+    "sbytes",
+    "dbytes",
+    "rate",
+    "sttl",
+    "dttl",
+    "sload",
+    "dload",
+    "sloss",
+    "dloss",
+    "sinpkt",
+    "dinpkt",
+    "sjit",
+    "djit",
+    "swin",
+    "stcpb",
+    "dtcpb",
+    "dwin",
+    "tcprtt",
+    "synack",
+    "ackdat",
+    "smean",
+    "dmean",
+    "trans_depth",
+    "response_body_len",
+    "ct_srv_src",
+    "ct_state_ttl",
+    "ct_dst_ltm",
+    "ct_dst_sport_ltm",
+    "ct_src_dport_ltm",
+    "ct_src_ltm",
+    "ct_srv_dst",
+    "ct_dst_src_ltm",
+    "is_ftp_login",
+    "ct_ftp_cmd",
+    "ct_flw_http_mthd",
+    "is_sm_ips_ports",
+]
 
-    def split_features_and_target(self, df):
-        # copy df
-        df_copy = df.copy()
+CATEGORICAL_FEATURES = [
+    "proto",
+    "service",
+    "state",
+]
 
-        # extract y
-        y = df_copy[self.target_column]
 
-        # extract attack metadata
-        attack_metadata = df_copy[self.attack_category_column]
+# Variant E removes the redundant members of the highly correlated groups.
+FEATURES_TO_DROP = [
+    "ct_dst_ltm",
+    "ct_dst_src_ltm",
+    "ct_ftp_cmd",
+    "ct_src_dport_ltm",
+    "ct_src_ltm",
+    "ct_srv_src",
+    "dloss",
+    "dpkts",
+    "dwin",
+    "is_sm_ips_ports",
+    "sloss",
+    "spkts",
+    "tcprtt",
+]
 
-        # drop id, label, attack_cat
-        X = df_copy.drop(columns=[self.id_column, self.target_column, self.attack_category_column])
 
-        # return X, y, attack_metadata
-        return X, y, attack_metadata
+REDUCED_NUMERICAL_FEATURES = [
+    feature
+    for feature in NUMERICAL_FEATURES
+    if feature not in FEATURES_TO_DROP
+]
 
-    def identify_feature_types(self, X):
-        self.categorical_features = []
-        self.numerical_features = []
-        
-        for i in X.columns:
-            if is_numeric_dtype(X[i]):
-                self.numerical_features.append(i)
-            else:
-                self.categorical_features.append(i)
 
-        return self.numerical_features, self.categorical_features
+def build_variant_e_preprocessor() -> ColumnTransformer:
+    """
+    Build the preprocessing pipeline used by Variant E.
 
-    def fit(self, X):
-        # Identify and store feature types
-        self.identify_feature_types(X)
+    Variant E:
+    - removes redundant correlated numerical features
+    - median-imputes numerical features
+    - standardizes numerical features
+    - most-frequent imputes categorical features
+    - one-hot encodes categorical features
+    """
 
-        # NUMERIC PIPELINE
-        numeric_transformer = Pipeline(
-            steps=[
-                (
-                    "imputer",
-                    SimpleImputer(strategy="median")
-                )
-            ]
-        )
+    numerical_transformer = Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="median")),
+            ("scaler", StandardScaler()),
+        ]
+    )
 
-        # CATEGORICAL PIPELINE
-        categorical_transformer = Pipeline(
-            steps=[
-                (
-                    "imputer",
-                    SimpleImputer(strategy="most_frequent")
-                ),
+    categorical_transformer = Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="most_frequent")),
+            (
+                "encoder",
+                OneHotEncoder(handle_unknown="ignore"),
+            ),
+        ]
+    )
 
-                (
-                    "encoder",
-                    OneHotEncoder(
-                        handle_unknown="ignore"
-                    )
-                )
-            ]
-        )
+    return ColumnTransformer(
+        transformers=[
+            (
+                "numeric",
+                numerical_transformer,
+                REDUCED_NUMERICAL_FEATURES,
+            ),
+            (
+                "categorical",
+                categorical_transformer,
+                CATEGORICAL_FEATURES,
+            ),
+        ]
+    )
 
-        # COMBINE BOTH PIPELINES
-        self.transformer = ColumnTransformer(
-            transformers=[
-                (
-                    "numeric",
-                    numeric_transformer,
-                    self.numerical_features
-                ),
 
-                (
-                    "categorical",
-                    categorical_transformer,
-                    self.categorical_features
-                )
-            ]
-        )
+def prepare_features(
+    df: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Remove target/metadata columns and redundant numerical features.
 
-        # FIT ONLY ON TRAINING DATA
-        self.transformer.fit(X)
+    Returns the raw feature DataFrame that is passed to the
+    Variant E preprocessor.
+    """
 
-        return self
+    feature_columns = (
+        REDUCED_NUMERICAL_FEATURES
+        + CATEGORICAL_FEATURES
+    )
 
-    def transform(self, X):
-        return self.transformer.transform(X)
+    return df[feature_columns].copy()
 
-    def fit_transform(self, X):
-        return self.fit(X).transform(X)
+
+def split_features_target(
+    df: pd.DataFrame,
+) -> Tuple[pd.DataFrame, pd.Series]:
+    """
+    Split a raw UNSW-NB15 DataFrame into model features and target.
+
+    The binary `label` column is used as the prediction target.
+    """
+
+    X = prepare_features(df)
+    y = df["label"].copy()
+
+    return X, y
