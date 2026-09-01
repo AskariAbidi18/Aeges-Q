@@ -28,3 +28,11 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# Model artifacts
+artifacts/classical/*
+artifacts/quantum/*
+
+!artifacts/classical/.gitkeep
+!artifacts/quantum/.gitkeep
+
