@@ -1,0 +1,2 @@
+model,qubits,features,training_samples,validation_samples,test_samples,accuracy,precision,recall,f1,roc_auc,fpr,training_time_seconds,inference_time_seconds
+QML Circuit C,4,4,2000,1000,2000,0.677,0.9161816065192084,0.5782512858192506,0.709009009009009,0.7204008605473974,0.11267605633802817,616.2290132045746,18.01991033554077
