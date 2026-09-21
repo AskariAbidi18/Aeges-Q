@@ -1,0 +1,2 @@
+algorithm,runs,median_latency_ms,mean_latency_ms,std_latency_ms,derived_key_bytes,session_key_agreement_verified
+X25519 + HKDF-SHA256,500,0.6147999956738204,0.665037801489234,0.3608062432448614,32,True
