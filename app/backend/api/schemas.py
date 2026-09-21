@@ -32,3 +32,21 @@ class PredictionRequest(BaseModel):
     proto: str
     service: str
     state: str
+
+class CryptoSessionRequest(BaseModel):
+    client_public_key: str
+
+
+class CryptoSessionResponse(BaseModel):
+    session_id: str
+    server_public_key: str
+
+
+class CryptoEncryptRequest(BaseModel):
+    session_id: str
+    plaintext: str
+
+
+class CryptoEncryptResponse(BaseModel):
+    nonce: str
+    ciphertext: str
