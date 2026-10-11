@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, ScanSearch, KeyRound, FlaskConical, Network, PanelLeft, Menu, ShieldHalf, Activity, Globe, Search, ShieldCheck } from 'lucide-react';
 import { StatusBadge } from '../ui/ui';
@@ -17,6 +17,7 @@ export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  useEffect(() => { const f = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); }; window.addEventListener('keydown', f); return () => window.removeEventListener('keydown', f); }, []);
   const current = routes.find(r => r.to === pathname)?.title ?? 'Overview';
   return (
     <div className={`shell ${collapsed ? 'collapsed' : ''}`}>
@@ -28,7 +29,7 @@ export function AppShell() {
       </aside>
       <div className="main">
         <header className="top">
-          <button className="icon-btn menu-btn" onClick={() => setOpen(o => !o)} aria-label="Toggle navigation"><Menu size={18} /></button>
+          <button className="icon-btn menu-btn" onClick={() => setOpen(o => !o)} aria-label="Toggle navigation" aria-expanded={open}><Menu size={18} /></button>
           <button className="icon-btn desk-only" onClick={() => setCollapsed(c => !c)} aria-label="Collapse sidebar"><PanelLeft size={18} /></button>
           <div><div className="mu" style={{ fontSize: 12 }}>AEGES-Q / {current}</div><h2>{current}</h2></div>
           <span className="sp" /><span className="desk-only"><StatusBadge kind="simulated" text="SIMULATED ENVIRONMENT" /></span>

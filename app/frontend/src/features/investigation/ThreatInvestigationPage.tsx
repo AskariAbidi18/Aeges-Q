@@ -9,20 +9,23 @@ export function ThreatInvestigationPage() {
   const [params, setParams] = useSearchParams();
   const [q, setQ] = useState('');
   const [sev, setSev] = useState<'all' | Level>('all');
-  const [type, setType] = useState('all');
+  const [typeSel, setType] = useState('all');
   const [sort, setSort] = useState<'sev' | 'time'>('time');
   const types = [...new Set(state.events.map(e => e.type))];
+  const type = types.includes(typeSel) ? typeSel : 'all';
   const rows = useMemo(() => state.events
     .filter(e => (sev === 'all' || e.severity === sev) && (type === 'all' || e.type === type) && `${e.id} ${e.src} ${e.dst}`.toLowerCase().includes(q.toLowerCase()))
     .sort((a, b) => sort === 'sev' ? rank(b.severity) - rank(a.severity) || b.t - a.t : b.t - a.t), [state.events, q, sev, type, sort]);
-  const sel = state.events.find(e => e.id === params.get('event'));
+  const wanted = params.get('event');
+  const sel = state.events.find(e => e.id === wanted);
   return (
     <>
       <PageHeader title="Threat investigation">Browse simulated events and review the scenario rule behind each assessment.</PageHeader>
       <div className="banner" role="note"><SimBanner text="SIMULATED EVENTS" /><span>Scenario: {levelInfo[state.level].label}. Not real incidents.</span>
         <Link to="/prediction-sandbox" className="btn sec" style={{ marginLeft: 'auto', textDecoration: 'none' }}>Open Prediction Sandbox</Link></div>
       <ScenarioSwitch />
-      <div className="grid g2" style={{ marginTop: 16, gridTemplateColumns: sel ? 'minmax(0,1.4fr) minmax(0,1fr)' : '1fr' }}>
+      {wanted && !sel && <p className="warn" role="status">{wanted} is not part of the {levelInfo[state.level].label} scenario. Switch scenario or <button className="step" onClick={() => setParams({})}>clear</button>.</p>}
+      <div className={`split ${sel ? 'detail' : ''}`} style={{ marginTop: 16 }}>
         <SectionCard title="Events" label={<StatusBadge kind="simulated" />}>
           <div className="fg" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))' }}>
             <div className="field"><label htmlFor="q">Search event or host ID</label><input id="q" value={q} onChange={e => setQ(e.target.value)} placeholder="EVT-1002 or HOST-07" /></div>

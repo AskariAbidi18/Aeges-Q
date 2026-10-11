@@ -36,3 +36,17 @@ artifacts/quantum/*
 !artifacts/classical/.gitkeep
 !artifacts/quantum/.gitkeep
 
+# Frontend - Node.js / React / Vite
+app/frontend/node_modules/
+app/frontend/dist/
+app/frontend/coverage/
+
+# Frontend environment files
+app/frontend/.env
+app/frontend/.env.*
+!app/frontend/.env.example
+
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

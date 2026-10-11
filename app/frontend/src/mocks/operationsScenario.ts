@@ -31,7 +31,7 @@ const statusByLevel: Record<Level, Record<string, HostStatus>> = {
   normal: {},
   elevated: { 'HOST-07': 'suspicious', 'HOST-09': 'suspicious' },
   high: { 'HOST-07': 'suspicious', 'HOST-09': 'suspicious', 'HOST-03': 'suspicious', 'HOST-08': 'high' },
-  critical: { 'HOST-07': 'high', 'HOST-08': 'high', 'HOST-09': 'suspicious', 'HOST-03': 'high', 'HOST-10': 'suspicious', 'HOST-05': 'suspicious' },
+  critical: { 'HOST-07': 'high', 'HOST-08': 'high', 'HOST-09': 'suspicious', 'HOST-03': 'high', 'HOST-10': 'suspicious', 'HOST-05': 'high' },
 };
 const flowMult: Record<Level, number> = { normal: 1, elevated: 1.2, high: 1.6, critical: 2.4 };
 export const hostStatus = (l: Level, id: string): HostStatus => statusByLevel[l][id] ?? 'normal';
