@@ -14,3 +14,8 @@ npm run build | preview | lint | typecheck
 - Every interaction (demo prediction, handshake, encryption) is local and simulated. No cryptography is implemented in the browser.
 - Historical metrics are offline research results, kept in `src/mocks/fixtures.ts`.
 - Planned capabilities (adaptive policy, ML-KEM-768) are shown disabled.
+
+## Redesign: simulated operations console
+
+Default route is **Security Operations**; new pages: Live Network (React Three Fiber, lazy-loaded, WebGL fallback + endpoint list), Threat Investigation, Adaptive Defense. The former Threat Detection page is now **Prediction Sandbox** (`/prediction-sandbox`); Overview is `/research-overview`.
+All operational data is simulated and derived from one source: `src/mocks/operationsScenario.ts`. Nothing is captured, predicted or enforced. Added dependencies: `three`, `@react-three/fiber`, `@react-three/drei`, `@types/three`.

@@ -39,3 +39,5 @@ input[aria-invalid=true]{border-color:var(--rd)}.err{color:var(--rd);font-size:1
 @media (max-width:1000px){.g4,.g3{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}}
 @media (max-width:760px){.shell,.shell.collapsed{grid-template-columns:1fr}.side{position:fixed;left:0;width:250px;transform:translateX(-100%);transition:transform .2s}
 .side.open{transform:none}.collapsed .lbl{display:inline}.menu-btn{display:inline-flex}.page{padding:16px}.top{padding:10px 14px}.g4,.g3,.fg{grid-template-columns:1fr}.desk-only{display:none}}
+.grp{font:600 11px var(--sans);letter-spacing:.06em;color:var(--mu);padding:12px 10px 4px}.nav{overflow-y:auto}
+fieldset{min-width:0;border:1px solid var(--bd)}a{color:var(--ac)}.main,.page{overflow-x:hidden}
