@@ -1,0 +1,23 @@
+{
+  "accuracy": 0.8525,
+  "precision": 0.9412251655629139,
+  "recall": 0.8354151359294636,
+  "f1": 0.8851693265862203,
+  "fpr": 0.1111111111111111,
+  "roc_auc": 0.9514205816168954,
+  "tn": 568,
+  "fp": 71,
+  "fn": 224,
+  "tp": 1137,
+  "experiment_id": "classical_rf_matched_4pca_v1",
+  "polarity": "normal",
+  "threshold": 0.47,
+  "test_samples": 2000,
+  "training_seconds": 1.8878764000255615,
+  "inference_seconds": 0.29364950000308454,
+  "samples_per_second": 6810.8408152542115,
+  "n_estimators": 300,
+  "training_samples": 2000,
+  "validation_samples": 1000,
+  "feature_dimensions": 4
+}

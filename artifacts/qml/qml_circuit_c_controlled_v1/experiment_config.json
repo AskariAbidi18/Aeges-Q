@@ -1,0 +1,15 @@
+{
+  "experiment_id": "qml_circuit_c_controlled_v1",
+  "training_seed": 20261012,
+  "simulator_seed": 20261012,
+  "shots": 256,
+  "train_samples": 2000,
+  "validation_samples": 1000,
+  "test_samples": 2000,
+  "spsa_iterations": 20,
+  "spsa_a": 0.1,
+  "spsa_c": 0.08,
+  "spsa_alpha": 0.602,
+  "spsa_gamma": 0.101,
+  "threshold_objective": "maximize_validation_f1_subject_to_fpr_le_0.10"
+}

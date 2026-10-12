@@ -1,0 +1,19 @@
+{
+  "protocol": "Matched train/validation/test partitions",
+  "training_samples": 2000,
+  "validation_samples": 1000,
+  "test_samples": 2000,
+  "feature_representation": "Four PCA components, scaled to [0, pi]",
+  "threshold_selection": "Validation only, maximize F1 subject to FPR <= 0.10",
+  "test_thresholds": {
+    "quantum_circuit_c": {
+      "polarity": "normal",
+      "threshold": 0.8046875
+    },
+    "matched_random_forest": {
+      "polarity": "normal",
+      "threshold": 0.47
+    }
+  },
+  "caveat": "Simulator timings are environment-specific. No quantum advantage is established."
+}

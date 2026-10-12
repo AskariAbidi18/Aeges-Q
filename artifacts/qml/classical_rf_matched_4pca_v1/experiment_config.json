@@ -1,0 +1,10 @@
+{
+  "experiment_id": "classical_rf_matched_4pca_v1",
+  "model": "RandomForestClassifier",
+  "n_estimators": 300,
+  "random_state": 20261014,
+  "features": "same four PCA components scaled to [0, pi] as clean Circuit C",
+  "train_samples": 2000,
+  "validation_samples": 1000,
+  "max_validation_fpr": 0.1
+}

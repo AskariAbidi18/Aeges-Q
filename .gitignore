@@ -8,6 +8,7 @@ data/interim/*
 data/processed/*
 !data/processed/.gitkeep
 
+
 # Python
 __pycache__/
 *.py[cod]
@@ -19,32 +20,59 @@ __pycache__/
 venv/
 env/
 
+
 # Jupyter
 .ipynb_checkpoints/
 
+
 # Environment variables
 .env
+.env.*
+!.env.example
+
 
 # OS
 .DS_Store
 Thumbs.db
 
+
 # Model artifacts
+# Ignore generated artifacts by default
 artifacts/classical/*
 artifacts/quantum/*
+artifacts/qml/*
 
+# Keep directory placeholders
 !artifacts/classical/.gitkeep
 !artifacts/quantum/.gitkeep
+!artifacts/qml/.gitkeep
+
+# Allow selected lightweight QML research results
+!artifacts/qml/qml_circuit_c_clean_v1/
+!artifacts/qml/qml_circuit_c_clean_v1/experiment_config.json
+!artifacts/qml/qml_circuit_c_clean_v1/validation_calibration.json
+!artifacts/qml/qml_circuit_c_clean_v1/final_test_metrics.json
+!artifacts/qml/qml_circuit_c_clean_v1/matched_model_comparison.csv
+!artifacts/qml/qml_circuit_c_clean_v1/matched_comparison_metadata.json
+
+!artifacts/qml/classical_rf_matched_4pca_v1/
+!artifacts/qml/classical_rf_matched_4pca_v1/experiment_config.json
+!artifacts/qml/classical_rf_matched_4pca_v1/validation_calibration.json
+!artifacts/qml/classical_rf_matched_4pca_v1/final_test_metrics.json
+!artifacts/qml/classical_rf_matched_4pca_v1/matched_model_comparison.csv
+
 
 # Frontend - Node.js / React / Vite
 app/frontend/node_modules/
 app/frontend/dist/
 app/frontend/coverage/
 
+
 # Frontend environment files
 app/frontend/.env
 app/frontend/.env.*
 !app/frontend/.env.example
+
 
 # Package manager logs
 npm-debug.log*
