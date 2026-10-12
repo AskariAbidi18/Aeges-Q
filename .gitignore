@@ -37,7 +37,6 @@ Thumbs.db
 
 
 # Model artifacts
-# Ignore generated artifacts by default
 artifacts/classical/*
 artifacts/quantum/*
 artifacts/qml/*
@@ -47,8 +46,9 @@ artifacts/qml/*
 !artifacts/quantum/.gitkeep
 !artifacts/qml/.gitkeep
 
-# Allow selected lightweight QML research results
+# Allow compact, reproducibility-critical QML results
 !artifacts/qml/qml_circuit_c_clean_v1/
+artifacts/qml/qml_circuit_c_clean_v1/*
 !artifacts/qml/qml_circuit_c_clean_v1/experiment_config.json
 !artifacts/qml/qml_circuit_c_clean_v1/validation_calibration.json
 !artifacts/qml/qml_circuit_c_clean_v1/final_test_metrics.json
@@ -56,6 +56,7 @@ artifacts/qml/*
 !artifacts/qml/qml_circuit_c_clean_v1/matched_comparison_metadata.json
 
 !artifacts/qml/classical_rf_matched_4pca_v1/
+artifacts/qml/classical_rf_matched_4pca_v1/*
 !artifacts/qml/classical_rf_matched_4pca_v1/experiment_config.json
 !artifacts/qml/classical_rf_matched_4pca_v1/validation_calibration.json
 !artifacts/qml/classical_rf_matched_4pca_v1/final_test_metrics.json
