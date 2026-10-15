@@ -1,0 +1,25 @@
+{
+    "experiment_id": "aeges_q_mlkem768_vs_x25519_hkdf_v1",
+    "timing_function": "time.perf_counter_ns",
+    "warmup_iterations": 20,
+    "recorded_iterations": 500,
+    "latency_unit": "milliseconds",
+    "summary_statistics": [
+        "count",
+        "mean",
+        "median",
+        "standard_deviation",
+        "minimum",
+        "maximum",
+        "p95"
+    ],
+    "operations": [
+        "mlkem768_key_generation",
+        "mlkem768_encapsulation",
+        "mlkem768_decapsulation",
+        "x25519_key_generation",
+        "x25519_shared_secret",
+        "hkdf_sha256_derivation",
+        "x25519_hkdf_combined_derivation"
+    ]
+}

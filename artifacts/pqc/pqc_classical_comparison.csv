@@ -1,0 +1,4 @@
+comparison,mlkem_or_pqc_operation,classical_operation,pqc_median_ms,classical_median_ms,median_latency_ratio
+Key generation,mlkem768_key_generation,x25519_key_generation,0.37825,0.0892,4.240470852017937
+ML-KEM decapsulation vs X25519 agreement,mlkem768_decapsulation,x25519_shared_secret,0.1436,0.0768,1.869791666666667
+ML-KEM encapsulation vs combined classical derivation,mlkem768_encapsulation,x25519_hkdf_combined_derivation,0.0959,0.0879,1.0910125142207052

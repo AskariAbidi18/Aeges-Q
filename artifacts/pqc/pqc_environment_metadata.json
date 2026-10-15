@@ -1,0 +1,21 @@
+{
+    "project": "AEGES-Q",
+    "experiment": "ML-KEM-768 benchmark",
+    "experiment_stage": "environment_validation",
+    "timestamp_utc": "2026-10-15T20:13:51.139734+00:00",
+    "python_version": "3.13.7",
+    "python_executable": "c:\\Projects\\Aeges-Q\\.venv\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "cryptography_version": "50.0.1",
+    "mlkem_algorithm": "ML-KEM-768",
+    "mlkem_api": "cryptography.hazmat.primitives.asymmetric.mlkem",
+    "smoke_test": {
+        "key_generation": "PASS",
+        "encapsulation": "PASS",
+        "decapsulation": "PASS",
+        "shared_secret_equality": "PASS",
+        "shared_secret_bytes": 32,
+        "ciphertext_bytes": 1088
+    }
+}

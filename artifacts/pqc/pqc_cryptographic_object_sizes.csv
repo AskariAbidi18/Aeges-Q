@@ -1,0 +1,9 @@
+mechanism,object,representation,size_bytes
+ML-KEM-768,Encapsulation public key,Standard raw encoding,1184
+ML-KEM-768,Private key,cryptography private_bytes_raw() seed representation,64
+ML-KEM-768,Encapsulation ciphertext,Standard ciphertext encoding,1088
+ML-KEM-768,Shared secret,Derived by encapsulation,32
+X25519 + HKDF-SHA256,Public key,Raw X25519 public-key encoding,32
+X25519 + HKDF-SHA256,Private key,Raw X25519 private-key encoding,32
+X25519 + HKDF-SHA256,Shared secret,Raw X25519 exchange output,32
+X25519 + HKDF-SHA256,Session key,HKDF-SHA256 output,32
