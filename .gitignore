@@ -79,3 +79,19 @@ app/frontend/.env.*
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
+
+
+# Post-quantum cryptography (PQC)
+artifacts/pqc/*
+
+# Keep compact, reproducibility-critical PQC results
+!artifacts/pqc/pqc_environment_metadata.json
+!artifacts/pqc/pqc_benchmark_config.json
+!artifacts/pqc/pqc_benchmark_summary.csv
+!artifacts/pqc/pqc_cryptographic_object_sizes.csv
+!artifacts/pqc/pqc_classical_comparison.csv
+!artifacts/pqc/pqc_raw_benchmark_results.csv
+
+# Keep directory placeholder
+!artifacts/pqc/.gitkeep
+
